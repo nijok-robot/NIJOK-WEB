@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ESP32-CAM Pseudostream</title>
+</head>
+<body>
+  <h1>Vista desde ESP32-CAM</h1>
+  <img id="cam-stream" src="/cam" width="320">
+  
+  <script>
+    setInterval(() => {
+      const img = document.getElementById("cam-stream");
+      img.src = "/cam?t=" + new Date().getTime(); // evitar caché
+    }, 1000); // cada 1 segundo
+  </script>
+</body>
+</html>
