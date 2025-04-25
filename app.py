@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file, render_template, redirect, url_for, session, flash, jsonify
+from flask import Flask, make_response, request, send_file, render_template, redirect, url_for, session, flash, jsonify
 import os
 import time
 from datetime import datetime
@@ -81,13 +81,14 @@ def upload_image():
 @app.route('/get_camera/<camera_id>')
 def get_camera(camera_id):
     camera_file = f'cam{camera_id}.jpg'
-    camera_path = os.path.join(UPLOAD_FOLDER, camera_file)
+    camera_path = os.path.join('static', 'images', camera_file)
     
-    # If the camera image doesn't exist, use a placeholder
     if not os.path.exists(camera_path):
         camera_path = os.path.join('static', 'images', 'placeholder.jpg')
     
-    return send_file(camera_path, mimetype='image/jpeg')
+    response = make_response(send_file(camera_path, mimetype='image/jpeg'))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    return response
 
 @app.route('/api/robot_data')
 def get_robot_data():
