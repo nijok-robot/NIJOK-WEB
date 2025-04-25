@@ -1,18 +1,291 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>ESP32-CAM Pseudostream</title>
-</head>
-<body>
-  <h1>Vista desde ESP32-CAM</h1>
-  <img id="cam-stream" src="/cam" width="320">
-  
-  <script>
-    setInterval(() => {
-      const img = document.getElementById("cam-stream");
-      img.src = "/cam?t=" + new Date().getTime(); // evitar caché
-    }, 1000); // cada 1 segundo
-  </script>
-</body>
-</html>
+{% extends "layout.html" %}
+
+{% block title %}CableBot 3000 - Cable Inspection Robot{% endblock %}
+
+{% block content %}
+<div class="landing-page">
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-circle">
+                    <span>CR</span>
+                </div>
+                <h1 class="gradient-text">CableBot 3000</h1>
+            </div>
+
+            <div class="nav-buttons">
+                <button id="home-btn" class="btn btn-ghost">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    Home
+                </button>
+                <button id="login-btn" class="btn btn-outline">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                        <polyline points="10 17 15 12 10 7"></polyline>
+                        <line x1="15" y1="12" x2="3" y2="12"></line>
+                    </svg>
+                    Enter
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content with Sliding Sections -->
+    <main class="main-content">
+        <!-- Section 1: Robot Introduction -->
+        <section id="section-1" class="section">
+            <div class="section-content">
+                <div class="hero-image">
+                    <img src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Cable Inspection Robot">
+                </div>
+                <h2 class="gradient-text">Cable Inspection Robot</h2>
+                <p class="section-text">
+                    Our advanced cable inspection robot is designed to navigate and inspect cable-stayed bridges with
+                    precision and efficiency. Using state-of-the-art technology, it provides real-time data and visual
+                    feedback to ensure the structural integrity of critical infrastructure.
+                </p>
+                <button id="next-section-1" class="btn btn-primary">
+                    Learn More
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="section-dots">
+                <button data-section="1" class="section-dot active"></button>
+                <button data-section="2" class="section-dot"></button>
+                <button data-section="3" class="section-dot"></button>
+                <button data-section="4" class="section-dot"></button>
+                <button data-section="5" class="section-dot"></button>
+            </div>
+        </section>
+
+        <!-- Section 2: Project Objectives -->
+        <section id="section-2" class="section section-alt">
+            <div class="section-content">
+                <h2 class="gradient-text">Project Objectives</h2>
+
+                <div class="objectives-grid">
+                    <div class="objective-card">
+                        <div class="objective-number">1</div>
+                        <h3>Enhanced Safety</h3>
+                        <p>
+                            Eliminate human risk by automating the inspection of dangerous cable-stayed bridge structures.
+                        </p>
+                    </div>
+
+                    <div class="objective-card">
+                        <div class="objective-number">2</div>
+                        <h3>Precision Monitoring</h3>
+                        <p>
+                            Capture high-resolution imagery and data to detect early signs of structural issues.
+                        </p>
+                    </div>
+
+                    <div class="objective-card">
+                        <div class="objective-number">3</div>
+                        <h3>Cost Efficiency</h3>
+                        <p>
+                            Reduce maintenance costs through regular automated inspections and preventative maintenance.
+                        </p>
+                    </div>
+
+                    <div class="objective-card">
+                        <div class="objective-number">4</div>
+                        <h3>Data Collection</h3>
+                        <p>
+                            Build comprehensive datasets for long-term structural health monitoring and analysis.
+                        </p>
+                    </div>
+                </div>
+
+                <button id="next-section-2" class="btn btn-primary">
+                    See Our Progress
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- Section 3: How We Started (YouTube Video) -->
+        <section id="section-3" class="section">
+            <div class="section-content">
+                <h2 class="gradient-text">How We Started</h2>
+                <p class="section-text">
+                    Watch our journey from concept to prototype. This video showcases our first advances in developing the
+                    cable inspection robot.
+                </p>
+
+                <div class="video-container">
+                    <iframe src="about:blank" title="Cable Inspection Robot First Advances" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+
+                <button id="next-section-3" class="btn btn-primary">
+                    Meet Our Team
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- Section 4: Developers -->
+        <section id="section-4" class="section section-alt">
+            <div class="section-content">
+                <h2 class="gradient-text">Our Development Team</h2>
+
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-avatar">
+                            <img src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Developer 1">
+                        </div>
+                        <h3>Alex Chen</h3>
+                        <p>Robotics Engineer</p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">
+                            <img src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Developer 2">
+                        </div>
+                        <h3>Maria Rodriguez</h3>
+                        <p>Software Developer</p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">
+                            <img src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Developer 3">
+                        </div>
+                        <h3>David Kim</h3>
+                        <p>Electronics Specialist</p>
+                    </div>
+                </div>
+
+                <button id="next-section-4" class="btn btn-primary">
+                    Contact Us
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- Section 5: Contact Details -->
+        <section id="section-5" class="section">
+            <div class="section-content">
+                <h2 class="gradient-text">Contact Us</h2>
+
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <h3>Project Manager</h3>
+                        <div class="contact-person">
+                            <div class="contact-avatar">
+                                <img src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Project Manager">
+                            </div>
+                            <div>
+                                <h4>Dr. James Wilson</h4>
+                                <p>Lead Project Manager</p>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <p>Email: james.wilson@cablebot.example.com</p>
+                            <p>Phone: +1 (555) 123-4567</p>
+                            <p>Office: Engineering Building, Room 305</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <h3>Connect With Us</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <div class="social-icon linkedin">in</div>
+                                <span>LinkedIn: CableBot Project</span>
+                            </a>
+                            <a href="#" class="social-link">
+                                <div class="social-icon twitter">t</div>
+                                <span>Twitter: @CableBotProject</span>
+                            </a>
+                            <a href="#" class="social-link">
+                                <div class="social-icon youtube">YT</div>
+                                <span>YouTube: CableBot Channel</span>
+                            </a>
+                            <a href="#" class="social-link">
+                                <div class="social-icon github">GH</div>
+                                <span>GitHub: CableBot-Project</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-info">
+                    <h3>Project Information</h3>
+                    <p>
+                        The Cable Inspection Robot project is funded by the National Infrastructure Safety Initiative and
+                        developed in partnership with the University of Technology and Bridge Safety Association.
+                    </p>
+                    <button id="access-dashboard-btn" class="btn btn-outline">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                            <polyline points="10 17 15 12 10 7"></polyline>
+                            <line x1="15" y1="12" x2="3" y2="12"></line>
+                        </svg>
+                        Access Dashboard
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="gradient-text">Secure Access</h3>
+                <button id="close-modal-btn" class="close-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <form action="{{ url_for('login') }}" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="error-message">
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    Access Dashboard
+                </button>
+                
+                <div class="form-note">
+                    This is a secure system. Unauthorized access is prohibited.
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
