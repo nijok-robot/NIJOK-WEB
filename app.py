@@ -129,5 +129,29 @@ def save_images():
         'timestamp': timestamp
     })
 
+@app.route('/history')
+def history():
+    if not session.get('logged_in'):
+        flash('Please log in to access the history')
+        return redirect(url_for('index'))
+    
+    # Simulamos datos históricos - en una app real, esto vendría de una base de datos
+    history_data = []
+    
+    # Generamos datos de ejemplo para los últimos 10 puntos
+    current_distance = float(robot_data['distance'])
+    for i in range(10):
+        point_distance = max(0, current_distance - (i * 5))
+        history_data.append({
+            'distance': point_distance,
+            'timestamp': (datetime.now().timestamp() - (i * 600)),
+            'cameras': [1, 2, 3]
+        })
+    
+    # Ordenamos por distancia (de menor a mayor)
+    history_data.sort(key=lambda x: x['distance'])
+    
+    return render_template('history.html', history_data=history_data)
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

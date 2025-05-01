@@ -295,6 +295,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     tempBar.className = 'progress-fill';
                 }
                 
+                const distance = parseFloat(data.distance).toFixed(1);
+                document.querySelectorAll('[id^="camera-distance-"]').forEach(el => {
+                    el.textContent = `${distance}m`;
+                });
+
                 // Update progress
                 updateProgress();
             });
