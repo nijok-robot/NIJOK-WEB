@@ -2,14 +2,13 @@ from flask import Flask, make_response, request, send_file, render_template, red
 import os
 import time
 from datetime import datetime
-import glob
 
 app = Flask(__name__)
-app.secret_key = 'cable_robot_secret_key'  # Change this to a random secret key in production
-UPLOAD_FOLDER = 'static/images'
+app.secret_key = 'cable_robot_secret_key'
+
+UPLOAD_FOLDER = '/home/nijokrobot/ESP32_CAM/static/images'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Simulated robot data - in a real app, this would come from a database or the robot itself
 robot_data = {
     'speed': 0.5,
     'distance': 42.7,
@@ -18,7 +17,6 @@ robot_data = {
     'last_update': time.time()
 }
 
-# Simple authentication - in a real app, use a proper authentication system
 ADMIN_USERNAME = 'admin'
 ADMIN_PASSWORD = 'password'
 
@@ -30,7 +28,7 @@ def index():
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
-    
+
     if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
         session['logged_in'] = True
         return redirect(url_for('dashboard'))
@@ -48,18 +46,15 @@ def dashboard():
     if not session.get('logged_in'):
         flash('Please log in to access the dashboard')
         return redirect(url_for('index'))
-    
-    # Update simulated robot data
+
     current_time = time.time()
     time_diff = current_time - robot_data['last_update']
-    
-    # Simulate data changes
+
     robot_data['distance'] += robot_data['speed'] * time_diff * 0.1
     robot_data['battery'] = max(0, min(100, robot_data['battery'] - time_diff * 0.001))
     robot_data['temperature'] = max(20, min(50, robot_data['temperature'] + (time.time() % 2 - 1) * 0.1))
     robot_data['last_update'] = current_time
-    
-    # Format data for display
+
     formatted_data = {
         'speed': f"{robot_data['speed']:.1f}",
         'distance': f"{robot_data['distance']:.1f}",
@@ -67,46 +62,58 @@ def dashboard():
         'temperature': f"{robot_data['temperature']:.1f}",
         'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
-    
+
     return render_template('dashboard.html', robot_data=formatted_data)
 
 @app.route('/upload', methods=['POST'])
 def upload_image():
-    image_data = request.data
-    camera_id = request.args.get('camera', '1')  # Default to camera 1 if not specified
+    camera_id = request.args.get('camera', '1')
 
     if not camera_id.isdigit():
         return 'Invalid camera ID', 400
 
-    if not image_data:
-        return 'No image data received', 400
+    if 'file' in request.files:
+        image_file = request.files['file']
+        if image_file.filename == '':
+            return 'No selected file', 400
 
-    try:
         file_path = os.path.join(UPLOAD_FOLDER, f'cam{camera_id}.jpg')
-        with open(file_path, 'wb') as f:
-            f.write(image_data)
-        return 'Image received', 200
-    except Exception as e:
-        app.logger.error(f"Error saving image for camera {camera_id}: {e}")
-        return 'Failed to save image', 500
+        try:
+            image_file.save(file_path)
+            app.logger.info(f"Saved image for camera {camera_id} at {file_path}")
+            return 'Image received (multipart)', 200
+        except Exception as e:
+            app.logger.error(f"Error saving image for camera {camera_id}: {e}")
+            return 'Failed to save image', 500
+
+    elif request.data:
+        try:
+            file_path = os.path.join(UPLOAD_FOLDER, f'cam{camera_id}.jpg')
+            with open(file_path, 'wb') as f:
+                f.write(request.data)
+            app.logger.info(f"Saved raw image for camera {camera_id} at {file_path}")
+            return 'Image received (raw)', 200
+        except Exception as e:
+            app.logger.error(f"Error saving raw image for camera {camera_id}: {e}")
+            return 'Failed to save image', 500
+
+    return 'No image data received', 400
 
 
 @app.route('/get_camera/<camera_id>')
 def get_camera(camera_id):
     camera_file = f'cam{camera_id}.jpg'
-    camera_path = os.path.join('static', 'images', camera_file)
-    
-    # Si existe la imagen de esa cámara → usarla
+    camera_path = os.path.join(UPLOAD_FOLDER, camera_file)
+    placeholder_path = os.path.join(UPLOAD_FOLDER, 'placeholder.jpg')
+
+    # Si existe la imagen pedida → usarla
     if os.path.exists(camera_path):
         selected_path = camera_path
+    # Si no, usa el placeholder
+    elif os.path.exists(placeholder_path):
+        selected_path = placeholder_path
     else:
-        # Buscar el último archivo JPG en la carpeta (ordenado por tiempo)
-        image_files = glob.glob(os.path.join('static', 'images', 'cam*.jpg'))
-        if image_files:
-            latest_file = max(image_files, key=os.path.getmtime)
-            selected_path = latest_file
-        else:
-            return "Image not found", 404
+        return "Image not found", 404
 
     try:
         response = make_response(send_file(selected_path, mimetype='image/jpeg'))
@@ -118,17 +125,15 @@ def get_camera(camera_id):
 
 @app.route('/api/robot_data')
 def get_robot_data():
-    # Update simulated robot data
     current_time = time.time()
     time_diff = current_time - robot_data['last_update']
-    
-    # Simulate data changes
+
     robot_data['speed'] = max(0, min(2, robot_data['speed'] + (time.time() % 2 - 1) * 0.05))
     robot_data['distance'] += robot_data['speed'] * time_diff * 0.1
     robot_data['battery'] = max(0, min(100, robot_data['battery'] - time_diff * 0.001))
     robot_data['temperature'] = max(20, min(50, robot_data['temperature'] + (time.time() % 2 - 1) * 0.1))
     robot_data['last_update'] = current_time
-    
+
     return jsonify(robot_data)
 
 @app.route('/emergency_stop', methods=['POST'])
@@ -144,13 +149,10 @@ def restart_system():
 
 @app.route('/save_images', methods=['POST'])
 def save_images():
-    # In a real app, this would save the current camera images with metadata
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     position = robot_data['distance']
-    
-    # Simulate saving images
     return jsonify({
-        'status': 'success', 
+        'status': 'success',
         'message': f'Images saved at position {position:.1f}m',
         'timestamp': timestamp
     })
@@ -160,11 +162,8 @@ def history():
     if not session.get('logged_in'):
         flash('Please log in to access the history')
         return redirect(url_for('index'))
-    
-    # Simulamos datos históricos - en una app real, esto vendría de una base de datos
+
     history_data = []
-    
-    # Generamos datos de ejemplo para los últimos 10 puntos
     current_distance = float(robot_data['distance'])
     for i in range(10):
         point_distance = max(0, current_distance - (i * 5))
@@ -173,10 +172,9 @@ def history():
             'timestamp': (datetime.now().timestamp() - (i * 600)),
             'cameras': [1, 2, 3]
         })
-    
-    # Ordenamos por distancia (de menor a mayor)
+
     history_data.sort(key=lambda x: x['distance'])
-    
+
     return render_template('history.html', history_data=history_data)
 
 if __name__ == '__main__':
