@@ -2,6 +2,7 @@ from flask import Flask, make_response, request, send_file, render_template, red
 import os
 import time
 from datetime import datetime
+import glob
 
 app = Flask(__name__)
 app.secret_key = 'cable_robot_secret_key'  # Change this to a random secret key in production
@@ -73,22 +74,47 @@ def dashboard():
 def upload_image():
     image_data = request.data
     camera_id = request.args.get('camera', '1')  # Default to camera 1 if not specified
-    
-    with open(os.path.join(UPLOAD_FOLDER, f'cam{camera_id}.jpg'), 'wb') as f:
-        f.write(image_data)
-    return 'Image received', 200
+
+    if not camera_id.isdigit():
+        return 'Invalid camera ID', 400
+
+    if not image_data:
+        return 'No image data received', 400
+
+    try:
+        file_path = os.path.join(UPLOAD_FOLDER, f'cam{camera_id}.jpg')
+        with open(file_path, 'wb') as f:
+            f.write(image_data)
+        return 'Image received', 200
+    except Exception as e:
+        app.logger.error(f"Error saving image for camera {camera_id}: {e}")
+        return 'Failed to save image', 500
+
 
 @app.route('/get_camera/<camera_id>')
 def get_camera(camera_id):
     camera_file = f'cam{camera_id}.jpg'
     camera_path = os.path.join('static', 'images', camera_file)
     
-    if not os.path.exists(camera_path):
-        camera_path = os.path.join('static', 'images', 'placeholder.jpg')
-    
-    response = make_response(send_file(camera_path, mimetype='image/jpeg'))
-    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-    return response
+    # Si existe la imagen de esa cámara → usarla
+    if os.path.exists(camera_path):
+        selected_path = camera_path
+    else:
+        # Buscar el último archivo JPG en la carpeta (ordenado por tiempo)
+        image_files = glob.glob(os.path.join('static', 'images', 'cam*.jpg'))
+        if image_files:
+            latest_file = max(image_files, key=os.path.getmtime)
+            selected_path = latest_file
+        else:
+            return "Image not found", 404
+
+    try:
+        response = make_response(send_file(selected_path, mimetype='image/jpeg'))
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        return response
+    except Exception as e:
+        app.logger.error(f"Error sending file {selected_path}: {e}")
+        return "Error serving image", 500
 
 @app.route('/api/robot_data')
 def get_robot_data():
