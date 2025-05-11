@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}CableBot 3000 - Image History{% endblock %}
+{% block title %}Nijok Robot - Image History{% endblock %}
 
 {% block content %}
 <div class="dashboard">
@@ -9,9 +9,9 @@
         <div class="container">
             <div class="logo">
                 <div class="logo-circle">
-                    <span>CR</span>
+                    <span>NJK</span>
                 </div>
-                <h1 class="gradient-text">CableBot 3000 - Image History</h1>
+                <h1 class="gradient-text">Nijok Robot - Image History</h1>
             </div>
 
             <div class="nav-buttons">
@@ -92,14 +92,14 @@
     <main class="container history-content">
         <div class="panel">
             <h2 class="panel-title">Image History Timeline</h2>
-            
+
             <div class="timeline-container">
                 <button id="scroll-left" class="timeline-scroll-btn left">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="15 18 9 12 15 6"></polyline>
                     </svg>
                 </button>
-                
+
                 <div class="timeline-wrapper">
                     <div class="timeline" id="timeline">
                         {% for point in history_data %}
@@ -110,17 +110,17 @@
                         {% endfor %}
                     </div>
                 </div>
-                
+
                 <button id="scroll-right" class="timeline-scroll-btn right">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                 </button>
             </div>
-            
+
             <div class="history-images">
                 <h3 id="selected-point-info">Select a point on the timeline</h3>
-                
+
                 <div class="camera-grid">
                     {% for camera in [1, 2, 3] %}
                     <div class="camera-feed" data-camera="{{ camera }}">
@@ -151,7 +151,7 @@
                 <div>
                     <h3 id="modal-camera-title"></h3>
                     <p class="modal-camera-details">
-                        Position: <span id="modal-position">0m</span> | 
+                        Position: <span id="modal-position">0m</span> |
                         Timestamp: <span id="modal-timestamp">-</span>
                     </p>
                 </div>
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Aplicar el tema guardado
     const savedTheme = localStorage.getItem('robot-dashboard-theme') || 'dark';
     document.body.className = `theme-${savedTheme}`;
-    
+
     // Actualizar el botón de tema activo
     document.querySelectorAll('.theme-option').forEach(option => {
         if (option.getAttribute('data-theme') === savedTheme) {
@@ -184,36 +184,36 @@ document.addEventListener('DOMContentLoaded', function() {
             option.classList.remove('active');
         }
     });
-    
+
     // Selector de tema
     const themeBtn = document.getElementById('theme-btn');
     const themeDropdown = document.getElementById('theme-dropdown');
     const themeOptions = document.querySelectorAll('.theme-option');
-    
+
     // Toggle theme dropdown
     themeBtn.addEventListener('click', () => {
         themeDropdown.classList.toggle('active');
     });
-    
+
     // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
         if (!themeBtn.contains(e.target) && !themeDropdown.contains(e.target)) {
             themeDropdown.classList.remove('active');
         }
     });
-    
+
     // Theme selection
     themeOptions.forEach(option => {
         option.addEventListener('click', () => {
             const theme = option.getAttribute('data-theme');
             localStorage.setItem('robot-dashboard-theme', theme);
-            
+
             // Remove all theme classes from body
             document.body.className = '';
-            
+
             // Add the selected theme class
             document.body.classList.add(`theme-${theme}`);
-            
+
             // Update active theme in dropdown
             themeOptions.forEach(opt => {
                 if (opt.getAttribute('data-theme') === theme) {
@@ -222,18 +222,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     opt.classList.remove('active');
                 }
             });
-            
+
             themeDropdown.classList.remove('active');
         });
     });
-    
+
     // Timeline functionality
     const timeline = document.getElementById('timeline');
     const scrollLeftBtn = document.getElementById('scroll-left');
     const scrollRightBtn = document.getElementById('scroll-right');
     const selectedPointInfo = document.getElementById('selected-point-info');
     const timelinePoints = document.querySelectorAll('.timeline-point');
-    
+
     // Variables para el modal - EXACTAMENTE IGUAL QUE EN DASHBOARD
     const cameraModal = document.getElementById('camera-modal');
     const modalCameraImg = document.getElementById('modal-camera-img');
@@ -243,86 +243,86 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalTimestamp = document.getElementById('modal-timestamp');
     const closeCameraModalBtn = document.getElementById('close-camera-modal');
     const cameraFeeds = document.querySelectorAll('.camera-feed');
-    
+
     // Scroll buttons
     scrollLeftBtn.addEventListener('click', () => {
         timeline.scrollBy({ left: -200, behavior: 'smooth' });
     });
-    
+
     scrollRightBtn.addEventListener('click', () => {
         timeline.scrollBy({ left: 200, behavior: 'smooth' });
     });
-    
+
     // Variables para almacenar la información del punto seleccionado
     let selectedDistance = '';
     let selectedTimestamp = '';
-    
+
     // Timeline point selection
     timelinePoints.forEach(point => {
         point.addEventListener('click', () => {
             // Remove active class from all points
             timelinePoints.forEach(p => p.classList.remove('active'));
-            
+
             // Add active class to selected point
             point.classList.add('active');
-            
+
             // Get data from the point
             selectedDistance = point.getAttribute('data-distance');
             const timestamp = new Date(point.getAttribute('data-timestamp') * 1000);
             selectedTimestamp = timestamp.toLocaleString();
-            
+
             // Update info
             selectedPointInfo.textContent = `Images at ${selectedDistance}m - Captured: ${selectedTimestamp}`;
-            
+
             // In a real app, we would load the actual images from the server
             // For this demo, we'll just update the image sources with a timestamp to simulate loading
             for (let i = 1; i <= 3; i++) {
                 const img = document.getElementById(`history-camera-${i}`);
                 img.src = `/static/images/placeholder.jpg?distance=${selectedDistance}&camera=${i}&t=${Date.now()}`;
-                
+
                 // Actualizar la distancia mostrada en cada cámara
                 document.getElementById(`history-distance-${i}`).textContent = `${selectedDistance}m`;
             }
         });
     });
-    
+
     // Abrir modal al hacer clic en una imagen - EXACTAMENTE IGUAL QUE EN DASHBOARD
     cameraFeeds.forEach(feed => {
         feed.addEventListener('click', () => {
             const cameraId = feed.getAttribute('data-camera');
             const cameraImg = feed.querySelector('img').src;
-            
+
             modalCameraImg.src = cameraImg;
             modalCameraLabel.textContent = `Camera ${cameraId} - Distance: ${selectedDistance}m`;
             modalCameraTitle.textContent = `Camera ${cameraId} Details`;
-            
+
             // Update position and timestamp in modal
             modalPosition.textContent = selectedDistance + 'm';
             modalTimestamp.textContent = selectedTimestamp;
-            
+
             // Mostrar el modal
             cameraModal.classList.add('active');
         });
     });
-    
+
     // Cerrar modal
     closeCameraModalBtn.addEventListener('click', () => {
         cameraModal.classList.remove('active');
     });
-    
+
     // Cerrar modal al hacer clic fuera
     window.addEventListener('click', function(e) {
         if (e.target === cameraModal) {
             cameraModal.classList.remove('active');
         }
     });
-    
+
     // Guardar imagen
     document.getElementById('modal-save-btn').addEventListener('click', () => {
         // En una aplicación real, esto guardaría la imagen
         alert('Image saved successfully!');
     });
-    
+
     // Select the first point by default
     if (timelinePoints.length > 0) {
         timelinePoints[0].click();

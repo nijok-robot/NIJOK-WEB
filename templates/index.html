@@ -9,9 +9,9 @@
         <div class="container">
             <div class="logo">
                 <div class="logo-circle">
-                    <span>CR</span>
+                    <span>NJK</span>
                 </div>
-                <h1 class="gradient-text">CableBot 3000</h1>
+                <h1 class="gradient-text">Nijok Robot</h1>
             </div>
 
             <div class="nav-buttons">
@@ -254,18 +254,18 @@
                     </svg>
                 </button>
             </div>
-            
+
             <form action="{{ url_for('login') }}" method="POST">
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" class="form-input" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" class="form-input" required>
                 </div>
-                
+
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
                         <div class="error-message">
@@ -273,11 +273,11 @@
                         </div>
                     {% endif %}
                 {% endwith %}
-                
+
                 <button type="submit" class="btn-primary btn-block">
                     Access Dashboard
                 </button>
-                
+
                 <div class="form-note">
                     This is a secure system. Unauthorized access is prohibited.
                 </div>

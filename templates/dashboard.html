@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}CableBot 3000 - Control Center{% endblock %}
+{% block title %}Nijok Robot - Control Center{% endblock %}
 
 {% block head %}
 <meta http-equiv="refresh" content="300">
@@ -13,9 +13,9 @@
         <div class="container">
             <div class="logo">
                 <div class="logo-circle">
-                    <span>CR</span>
+                    <span>NJK</span>
                 </div>
-                <h1 class="gradient-text">CableBot 3000 - Control Center</h1>
+                <h1 class="gradient-text">Nijok Robot - Control Center</h1>
             </div>
 
             <div class="nav-buttons">
@@ -100,7 +100,7 @@
                     <span class="status-dot"></span>
                     Live Camera Feeds
                 </h2>
-                
+
                 <div class="camera-grid">
                     {% for camera in [1, 2, 3] %}
                     <div class="camera-feed" data-camera="{{ camera }}">
@@ -112,7 +112,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                
+
                 <div class="panel-footer">
                     <div class="position-info">
                         Current position: <span id="current-position" class="value">{{ robot_data.distance }}m</span>
@@ -126,7 +126,7 @@
                             </svg>
                             Save Current Images
                         </button>
-                        
+
                         <a href="{{ url_for('history') }}" class="btn btn-outline">
                             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10"></circle>
@@ -137,13 +137,13 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Paneles de estado en dos columnas -->
             <div class="status-panels">
                 <!-- Robot Status Panel -->
                 <div class="panel">
                     <h2 class="panel-title">Robot Status</h2>
-                    
+
                     <div class="status-content">
                         <!-- Cable Length Input -->
                         <div class="form-group">
@@ -171,9 +171,9 @@
                                 <span id="total-length">100m</span>
                             </div>
                         </div>
-                        
+
                         <hr class="divider">
-                        
+
                         <!-- Speed -->
                         <div class="status-item">
                             <div class="status-header">
@@ -193,9 +193,9 @@
                                 <span>2 m/s</span>
                             </div>
                         </div>
-                        
+
                         <hr class="divider">
-                        
+
                         <!-- Distance -->
                         <div class="status-item">
                             <div class="status-header">
@@ -208,9 +208,9 @@
                                 <span id="distance-traveled" class="value">{{ robot_data.distance }} m</span>
                             </div>
                         </div>
-                        
+
                         <hr class="divider">
-                        
+
                         <!-- Battery -->
                         <div class="status-item">
                             <div class="status-header">
@@ -227,9 +227,9 @@
                                 <div id="battery-bar" class="progress-fill" style="width: {{ robot_data.battery }}%"></div>
                             </div>
                         </div>
-                        
+
                         <hr class="divider">
-                        
+
                         <!-- Temperature -->
                         <div class="status-item">
                             <div class="status-header">
@@ -251,11 +251,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- System Info -->
                 <div class="panel">
                     <h2 class="panel-title">System Information</h2>
-                    
+
                     <div class="system-info">
                         <div class="info-item">
                             <span class="info-label">System Status:</span>
@@ -308,7 +308,7 @@
                 <div>
                     <h3 id="modal-camera-title"></h3>
                     <p class="modal-camera-details">
-                        Position: <span id="modal-position">{{ robot_data.distance }}m</span> | 
+                        Position: <span id="modal-position">{{ robot_data.distance }}m</span> |
                         Timestamp: <span id="modal-timestamp">{{ robot_data.timestamp }}</span>
                     </p>
                 </div>
@@ -348,23 +348,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeDropdown = document.getElementById('theme-dropdown');
     const themeOptions = document.querySelectorAll('.theme-option');
     const app = document.getElementById('app');
-    
+
     // Default theme
     let currentTheme = localStorage.getItem('robot-dashboard-theme') || 'dark';
     applyTheme(currentTheme);
-    
+
     // Toggle theme dropdown
     themeBtn.addEventListener('click', () => {
         themeDropdown.classList.toggle('active');
     });
-    
+
     // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
         if (!themeBtn.contains(e.target) && !themeDropdown.contains(e.target)) {
             themeDropdown.classList.remove('active');
         }
     });
-    
+
     // Theme selection
     themeOptions.forEach(option => {
         option.addEventListener('click', () => {
@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('robot-dashboard-theme', theme);
             applyTheme(theme);
             themeDropdown.classList.remove('active');
-            
+
             // Update active theme in dropdown
             themeOptions.forEach(opt => {
                 if (opt.getAttribute('data-theme') === theme) {
@@ -384,21 +384,21 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
-    
+
     function applyTheme(theme) {
         // Remove all theme classes from body
         document.body.className = '';
-        
+
         // Add the selected theme class
         document.body.classList.add(`theme-${theme}`);
-        
+
         // Update theme icon
         updateThemeIcon(theme);
     }
-    
+
     function updateThemeIcon(theme) {
         const iconElement = themeBtn.querySelector('svg');
-        
+
         // Update icon path based on theme
         switch(theme) {
             case 'light':
@@ -420,13 +420,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateSVGPath(iconElement, 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z');
         }
     }
-    
+
     function updateSVGPath(iconElement, pathData) {
         // Clear existing paths
         while (iconElement.firstChild) {
             iconElement.removeChild(iconElement.firstChild);
         }
-        
+
         // Create new path
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         path.setAttribute('d', pathData);
@@ -435,10 +435,10 @@ document.addEventListener('DOMContentLoaded', function() {
         path.setAttribute('stroke-width', '2');
         path.setAttribute('stroke-linecap', 'round');
         path.setAttribute('stroke-linejoin', 'round');
-        
+
         iconElement.appendChild(path);
     }
-    
+
     // Camera modal
     const cameraFeeds = document.querySelectorAll('.camera-feed');
     const cameraModal = document.getElementById('camera-modal');
@@ -446,65 +446,65 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalCameraLabel = document.getElementById('modal-camera-label');
     const modalCameraTitle = document.getElementById('modal-camera-title');
     const closeModalBtn = document.getElementById('close-camera-modal');
-    
+
     cameraFeeds.forEach(feed => {
         feed.addEventListener('click', () => {
             const cameraId = feed.getAttribute('data-camera');
             const cameraImg = feed.querySelector('img').src;
-            
+
             modalCameraImg.src = cameraImg;
             modalCameraLabel.textContent = `Camera ${cameraId} - Distance: ${document.getElementById(`camera-distance-${cameraId}`).textContent}`;
             modalCameraTitle.textContent = `Camera ${cameraId} Details`;
-            
+
             // Update position and timestamp in modal
             document.getElementById('modal-position').textContent = document.getElementById('current-position').textContent;
             document.getElementById('modal-timestamp').textContent = new Date().toLocaleTimeString();
-            
+
             cameraModal.classList.add('active');
         });
     });
-    
+
     closeModalBtn.addEventListener('click', () => {
         cameraModal.classList.remove('active');
     });
-    
+
     // Close modal when clicking outside
     cameraModal.addEventListener('click', function(e) {
         if (e.target === cameraModal) {
             cameraModal.classList.remove('active');
         }
     });
-    
+
     // Cable length input
     const cableLengthInput = document.getElementById('cable-length');
     const totalLengthSpan = document.getElementById('total-length');
     const progressBar = document.getElementById('progress-bar');
     const progressPercentage = document.getElementById('progress-percentage');
-    
+
     cableLengthInput.addEventListener('change', updateProgress);
-    
+
     function updateProgress() {
         const totalLength = parseFloat(cableLengthInput.value);
         const currentDistance = parseFloat(document.getElementById('distance-traveled').textContent);
-        
+
         if (isNaN(totalLength) || totalLength <= 0) {
             cableLengthInput.value = 100;
             return;
         }
-        
+
         totalLengthSpan.textContent = `${totalLength}m`;
-        
+
         const progress = (currentDistance / totalLength) * 100;
         progressBar.style.width = `${Math.min(100, progress)}%`;
         progressPercentage.textContent = `${progress.toFixed(1)}%`;
     }
-    
+
     // Save images button
     const saveImagesBtn = document.getElementById('save-images-btn');
     const modalSaveBtn = document.getElementById('modal-save-btn');
-    
+
     function saveImages() {
-        fetch('/save_images', { 
+        fetch('/save_images', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -515,23 +515,23 @@ document.addEventListener('DOMContentLoaded', function() {
             showToast('Images Saved', data.message, 'download', 'success');
         });
     }
-    
+
     saveImagesBtn.addEventListener('click', saveImages);
     modalSaveBtn.addEventListener('click', saveImages);
-    
+
     // Toast notification
     function showToast(title, message, iconType, type) {
         const toast = document.getElementById('toast');
         const toastTitle = document.getElementById('toast-title');
         const toastMessage = document.getElementById('toast-message');
         const toastIcon = document.getElementById('toast-icon');
-        
+
         toastTitle.textContent = title;
         toastMessage.textContent = message;
-        
+
         // Update icon based on type
         const iconSVG = toastIcon.querySelector('svg');
-        
+
         switch(iconType) {
             case 'alert-triangle':
                 updateSVGPath(iconSVG, 'M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z M12 9v2 M12 17h.01');
@@ -545,7 +545,7 @@ document.addEventListener('DOMContentLoaded', function() {
             default:
                 updateSVGPath(iconSVG, 'M22 11.08V12a10 10 0 1 1-5.93-9.14 M22 4L12 14.01l-3-3');
         }
-        
+
         // Update color based on type
         switch(type) {
             case 'danger':
@@ -560,16 +560,16 @@ document.addEventListener('DOMContentLoaded', function() {
             default:
                 toastIcon.style.color = 'var(--primary)';
         }
-        
+
         // Show toast
         toast.classList.add('active');
-        
+
         // Hide toast after 3 seconds
         setTimeout(() => {
             toast.classList.remove('active');
         }, 3000);
     }
-    
+
     // Fetch robot data periodically
     function updateRobotData() {
         fetch('/api/robot_data')
@@ -577,13 +577,13 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 document.getElementById('current-speed').textContent = `${parseFloat(data.speed).toFixed(1)} m/s`;
                 document.getElementById('speed-bar').style.width = `${Math.min(100, data.speed * 50)}%`;
-                
+
                 document.getElementById('distance-traveled').textContent = `${parseFloat(data.distance).toFixed(1)} m`;
                 document.getElementById('current-position').textContent = `${parseFloat(data.distance).toFixed(1)}m`;
-                
+
                 document.getElementById('battery-level').textContent = `${parseInt(data.battery)}%`;
                 document.getElementById('battery-bar').style.width = `${data.battery}%`;
-                
+
                 // Update battery bar color based on level
                 const batteryBar = document.getElementById('battery-bar');
                 if (data.battery > 60) {
@@ -593,10 +593,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     batteryBar.className = 'progress-fill danger';
                 }
-                
+
                 document.getElementById('temperature').textContent = `${parseFloat(data.temperature).toFixed(1)}°C`;
                 document.getElementById('temp-bar').style.width = `${Math.min(100, (data.temperature - 20) * (100 / 30))}%`;
-                
+
                 // Update temperature bar color based on level
                 const tempBar = document.getElementById('temp-bar');
                 if (data.temperature > 40) {
@@ -606,22 +606,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     tempBar.className = 'progress-fill';
                 }
-                
+
                 // Actualizar la distancia en cada cámara
                 const distance = parseFloat(data.distance).toFixed(1);
                 document.querySelectorAll('[id^="camera-distance-"]').forEach(el => {
                     el.textContent = `${distance}m`;
                 });
-                
+
                 // Update progress
                 updateProgress();
             });
     }
-    
+
     // Update data initially and then every 5 seconds
     updateRobotData();
     setInterval(updateRobotData, 5000);
-    
+
     // Refresh camera images every 5 seconds
     function refreshCameraImages() {
         const cameraImages = document.querySelectorAll('.camera-img');
@@ -631,9 +631,9 @@ document.addEventListener('DOMContentLoaded', function() {
             img.src = `/get_camera/${cameraId}?t=${timestamp}`;
         });
     }
-    
+
     setInterval(refreshCameraImages, 5000);
-    
+
     // Initialize progress bar
     updateProgress();
 });
