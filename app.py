@@ -10,12 +10,17 @@ UPLOAD_FOLDER = '/home/nijokrobot/ESP32_CAM/static/images'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 robot_data = {
-    'speed': 0.5,
-    'distance': 42.7,
-    'battery': 78,
-    'temperature': 32.4,
+    'velocidad_actual': 0.0,
+    'velocidad_referencia': 0.0,
+    'tem_motor1': 0.0,
+    'tem_motor2': 0.0,
+    'corr_motor1': 0.0,
+    'corr_motor2': 0.0,
+    'distancia_total': 0,
+    'voltaje_24v': 0.0,
     'last_update': time.time()
 }
+
 
 ADMIN_USERNAME = 'admin'
 ADMIN_PASSWORD = 'password'
@@ -72,16 +77,21 @@ def update_robot_data():
         if not data:
             return jsonify({'error': 'No data received'}), 400
 
-        robot_data['speed'] = float(data.get('velocidad_actual', 0))
-        robot_data['distance'] = float(data.get('distancia_total', 0)) / 1000  # mm a m
-        robot_data['battery'] = float(data.get('voltaje_24v', 0)) / 24 * 100  # suposición
-        robot_data['temperature'] = float(data.get('tem_motor1', 0))
+        robot_data['velocidad_actual'] = float(data.get('velocidad_actual', 0))
+        robot_data['velocidad_referencia'] = float(data.get('velocidad_referencia', 0))
+        robot_data['tem_motor1'] = float(data.get('tem_motor1', 0))
+        robot_data['tem_motor2'] = float(data.get('tem_motor2', 0))
+        robot_data['corr_motor1'] = float(data.get('corr_motor1', 0))
+        robot_data['corr_motor2'] = float(data.get('corr_motor2', 0))
+        robot_data['distancia_total'] = int(data.get('distancia_total', 0))
+        robot_data['voltaje_24v'] = float(data.get('voltaje_24v', 0))
         robot_data['last_update'] = time.time()
 
         return jsonify({'status': 'success'}), 200
     except Exception as e:
         app.logger.error(f"Error updating robot data: {e}")
         return jsonify({'error': 'Failed to update data'}), 500
+
 
 
 @app.route('/upload', methods=['POST'])
