@@ -65,6 +65,25 @@ def dashboard():
 
     return render_template('dashboard.html', robot_data=formatted_data)
 
+@app.route('/api/update_robot_data', methods=['POST'])
+def update_robot_data():
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No data received'}), 400
+
+        robot_data['speed'] = float(data.get('velocidad_actual', 0))
+        robot_data['distance'] = float(data.get('distancia_total', 0)) / 1000  # mm a m
+        robot_data['battery'] = float(data.get('voltaje_24v', 0)) / 24 * 100  # suposición
+        robot_data['temperature'] = float(data.get('tem_motor1', 0))
+        robot_data['last_update'] = time.time()
+
+        return jsonify({'status': 'success'}), 200
+    except Exception as e:
+        app.logger.error(f"Error updating robot data: {e}")
+        return jsonify({'error': 'Failed to update data'}), 500
+
+
 @app.route('/upload', methods=['POST'])
 def upload_image():
     camera_id = request.args.get('camera', '1')
@@ -125,16 +144,14 @@ def get_camera(camera_id):
 
 @app.route('/api/robot_data')
 def get_robot_data():
-    current_time = time.time()
-    time_diff = current_time - robot_data['last_update']
+    return jsonify({
+        'speed': robot_data['speed'],
+        'distance': robot_data['distance'],
+        'battery': robot_data['battery'],
+        'temperature': robot_data['temperature'],
+        'last_update': robot_data['last_update']
+    })
 
-    robot_data['speed'] = max(0, min(2, robot_data['speed'] + (time.time() % 2 - 1) * 0.05))
-    robot_data['distance'] += robot_data['speed'] * time_diff * 0.1
-    robot_data['battery'] = max(0, min(100, robot_data['battery'] - time_diff * 0.001))
-    robot_data['temperature'] = max(20, min(50, robot_data['temperature'] + (time.time() % 2 - 1) * 0.1))
-    robot_data['last_update'] = current_time
-
-    return jsonify(robot_data)
 
 @app.route('/emergency_stop', methods=['POST'])
 def emergency_stop():
