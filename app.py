@@ -52,19 +52,17 @@ def dashboard():
         flash('Please log in to access the dashboard')
         return redirect(url_for('index'))
 
-    current_time = time.time()
-    time_diff = current_time - robot_data['last_update']
-
-    robot_data['distance'] += robot_data['speed'] * time_diff * 0.1
-    robot_data['battery'] = max(0, min(100, robot_data['battery'] - time_diff * 0.001))
-    robot_data['temperature'] = max(20, min(50, robot_data['temperature'] + (time.time() % 2 - 1) * 0.1))
-    robot_data['last_update'] = current_time
-
     formatted_data = {
-        'speed': f"{robot_data['speed']:.1f}",
-        'distance': f"{robot_data['distance']:.1f}",
-        'battery': f"{robot_data['battery']:.0f}",
-        'temperature': f"{robot_data['temperature']:.1f}",
+        'speed': f"{robot_data['velocidad_actual']:.1f}",
+        'velocidad_referencia': f"{robot_data['velocidad_referencia']:.1f}",
+        'distance': f"{robot_data['distancia_total']:.1f}",
+        'battery': f"{robot_data['voltaje_24v'] * 4.166:.0f}",  # suponiendo 24V = 100%
+        'voltaje_24v': f"{robot_data['voltaje_24v']:.2f}",
+        'temperature': f"{robot_data['tem_motor1']:.1f}",  # o promedio si prefieres
+        'tem_motor1': f"{robot_data['tem_motor1']:.1f}",
+        'tem_motor2': f"{robot_data['tem_motor2']:.1f}",
+        'corr_motor1': f"{robot_data['corr_motor1']:.2f}",
+        'corr_motor2': f"{robot_data['corr_motor2']:.2f}",
         'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
 

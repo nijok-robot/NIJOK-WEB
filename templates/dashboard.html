@@ -22,13 +22,15 @@
                 <!-- Theme Selector -->
                 <div class="theme-selector">
                     <button id="theme-btn" class="btn btn-icon">
-                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                         </svg>
                     </button>
                     <div id="theme-dropdown" class="dropdown-menu">
                         <button data-theme="light" class="theme-option">
-                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="5"></circle>
                                 <line x1="12" y1="1" x2="12" y2="3"></line>
                                 <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -42,13 +44,15 @@
                             Light Mode
                         </button>
                         <button data-theme="dark" class="theme-option active">
-                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                             </svg>
                             Dark Mode
                         </button>
                         <button data-theme="cyberpunk" class="theme-option">
-                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
                                 <line x1="8" y1="21" x2="16" y2="21"></line>
                                 <line x1="12" y1="17" x2="12" y2="21"></line>
@@ -56,14 +60,16 @@
                             Cyberpunk
                         </button>
                         <button data-theme="nature" class="theme-option">
-                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"></path>
                                 <line x1="4" y1="21" x2="20" y2="21"></line>
                             </svg>
                             Nature
                         </button>
                         <button data-theme="terminal" class="theme-option">
-                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="4 17 10 11 4 5"></polyline>
                                 <line x1="12" y1="19" x2="20" y2="19"></line>
                             </svg>
@@ -73,14 +79,16 @@
                 </div>
 
                 <a href="{{ url_for('index') }}" class="btn btn-ghost">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
                     Home
                 </a>
                 <a href="{{ url_for('logout') }}" class="btn btn-danger-outline">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                         <polyline points="16 17 21 12 16 7"></polyline>
                         <line x1="21" y1="12" x2="9" y2="12"></line>
@@ -104,7 +112,8 @@
                 <div class="camera-grid">
                     {% for camera in [1, 2, 3] %}
                     <div class="camera-feed" data-camera="{{ camera }}">
-                        <img src="{{ url_for('get_camera', camera_id=camera) }}" alt="Camera {{ camera }}" class="camera-img" data-camera="{{ camera }}">
+                        <img src="{{ url_for('get_camera', camera_id=camera) }}" alt="Camera {{ camera }}"
+                            class="camera-img" data-camera="{{ camera }}">
                         <div class="camera-label">CAM {{ camera }}</div>
                         <div class="camera-distance" id="camera-distance-{{ camera }}">
                             {{ robot_data.distance }}m
@@ -119,7 +128,8 @@
                     </div>
                     <div class="action-buttons">
                         <button id="save-images-btn" class="btn btn-outline">
-                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                 <polyline points="7 10 12 15 17 10"></polyline>
                                 <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -128,7 +138,8 @@
                         </button>
 
                         <a href="{{ url_for('history') }}" class="btn btn-outline">
-                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <polyline points="12 6 12 12 16 14"></polyline>
                             </svg>
@@ -155,7 +166,8 @@
                         <div class="status-item">
                             <div class="status-header">
                                 <div class="status-label">
-                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <circle cx="12" cy="12" r="10"></circle>
                                         <polyline points="12 6 12 12 16 14"></polyline>
                                     </svg>
@@ -178,7 +190,8 @@
                         <div class="status-item">
                             <div class="status-header">
                                 <div class="status-label">
-                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                                     </svg>
                                     <span>Current Speed</span>
@@ -186,7 +199,8 @@
                                 <span id="current-speed" class="value">{{ robot_data.speed }} m/s</span>
                             </div>
                             <div class="progress-bar">
-                                <div id="speed-bar" class="progress-fill" style="width: {{ (robot_data.speed|float * 50)|int }}%"></div>
+                                <div id="speed-bar" class="progress-fill"
+                                    style="width: {{ (robot_data.speed|float * 50)|int }}%"></div>
                             </div>
                             <div class="progress-labels">
                                 <span>0 m/s</span>
@@ -200,7 +214,8 @@
                         <div class="status-item">
                             <div class="status-header">
                                 <div class="status-label">
-                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
                                     </svg>
                                     <span>Distance Traveled</span>
@@ -215,7 +230,8 @@
                         <div class="status-item">
                             <div class="status-header">
                                 <div class="status-label">
-                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="1" y="6" width="18" height="12" rx="2" ry="2"></rect>
                                         <line x1="23" y1="13" x2="23" y2="11"></line>
                                     </svg>
@@ -224,7 +240,8 @@
                                 <span id="battery-level" class="value">{{ robot_data.battery }}%</span>
                             </div>
                             <div class="progress-bar">
-                                <div id="battery-bar" class="progress-fill" style="width: {{ robot_data.battery }}%"></div>
+                                <div id="battery-bar" class="progress-fill" style="width: {{ robot_data.battery }}%">
+                                </div>
                             </div>
                         </div>
 
@@ -234,7 +251,8 @@
                         <div class="status-item">
                             <div class="status-header">
                                 <div class="status-label">
-                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path>
                                     </svg>
                                     <span>Temperature</span>
@@ -242,13 +260,90 @@
                                 <span id="temperature" class="value">{{ robot_data.temperature }}°C</span>
                             </div>
                             <div class="progress-bar">
-                                <div id="temp-bar" class="progress-fill" style="width: {{ ((robot_data.temperature|float - 20) * (100 / 30))|int }}%"></div>
+                                <div id="temp-bar" class="progress-fill"
+                                    style="width: {{ ((robot_data.temperature|float - 20) * (100 / 30))|int }}%"></div>
                             </div>
                             <div class="progress-labels">
                                 <span>20°C</span>
                                 <span>50°C</span>
                             </div>
                         </div>
+
+                        <hr class="divider">
+
+                        <!-- Speed (Actual / Ref) -->
+                        <div class="status-item">
+                            <div class="status-header">
+                                <div class="status-label">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M22 12h-4M6 12H2M12 2v4M12 18v4"></path>
+                                    </svg>
+                                    <span>Speed (Actual / Ref)</span>
+                                </div>
+                                <span class="value"> {{ robot_data.velocidad_referencia }}
+                                    mm/s</span>
+                            </div>
+                        </div>
+
+                        <!-- Motor Temperatures -->
+                        <div class="status-item">
+                            <div class="status-header">
+                                <div class="status-label">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path>
+                                    </svg>
+                                    <span>Motor Temps</span>
+                                </div>
+                                <span class="value">{{ robot_data.tem_motor1 }} / {{ robot_data.tem_motor2 }} °C</span>
+                            </div>
+                        </div>
+
+                        <!-- Motor Currents -->
+                        <div class="status-item">
+                            <div class="status-header">
+                                <div class="status-label">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 3v18M18 3v18M6 9h12M6 15h12"></path>
+                                    </svg>
+                                    <span>Motor 1 Current</span>
+                                </div>
+                                <span class="value">{{ robot_data.corr_motor1 }}  A</span>
+                            </div>
+                        </div>
+                        <!-- Motor Currents -->
+                        <div class="status-item">
+                            <div class="status-header">
+                                <div class="status-label">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 3v18M18 3v18M6 9h12M6 15h12"></path>
+                                    </svg>
+                                    <span>Motor 2 Current</span>
+                                </div>
+                                <span class="value"> {{ robot_data.corr_motor2 }} A</span>
+                            </div>
+                        </div>
+
+                        <!-- Voltage 24V -->
+                        <div class="status-item">
+                            <div class="status-header">
+                                <div class="status-label">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="13 2 13 9 20 9"></polyline>
+                                        <path d="M18 13a6 6 0 1 1-6-6"></path>
+                                    </svg>
+                                    <span>Voltage 24V</span>
+                                </div>
+                                <span class="value">{{ robot_data.voltaje_24v }} V</span>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -263,11 +358,11 @@
                         </div>
                         <div class="info-item">
                             <span class="info-label">Last Maintenance:</span>
-                            <span class="info-value">2023-04-15</span>
+                            <span class="info-value">2025-06-06</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Firmware Version:</span>
-                            <span class="info-value">v2.3.7</span>
+                            <span class="info-value">v1.0.0</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Connection:</span>
@@ -277,7 +372,8 @@
                             <span class="info-label">Signal Strength:</span>
                             <div class="signal-bars">
                                 {% for bar in range(1, 5) %}
-                                <div class="signal-bar {{ 'active' if bar <= 3 else '' }}" style="height: {{ bar * 3 }}px"></div>
+                                <div class="signal-bar {{ 'active' if bar <= 3 else '' }}"
+                                    style="height: {{ bar * 3 }}px"></div>
                                 {% endfor %}
                             </div>
                         </div>
@@ -297,7 +393,8 @@
             <div class="modal-camera">
                 <img id="modal-camera-img" src="/placeholder.svg" alt="Camera Enlarged View">
                 <button id="close-camera-modal" class="close-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
@@ -313,7 +410,8 @@
                     </p>
                 </div>
                 <button id="modal-save-btn" class="btn btn-outline">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                         <polyline points="7 10 12 15 17 10"></polyline>
                         <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -327,7 +425,8 @@
     <!-- Toast Notification -->
     <div id="toast" class="toast">
         <div id="toast-icon" class="toast-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
@@ -342,300 +441,300 @@
 
 {% block scripts %}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Theme switching
-    const themeBtn = document.getElementById('theme-btn');
-    const themeDropdown = document.getElementById('theme-dropdown');
-    const themeOptions = document.querySelectorAll('.theme-option');
-    const app = document.getElementById('app');
+    document.addEventListener('DOMContentLoaded', function () {
+        // Theme switching
+        const themeBtn = document.getElementById('theme-btn');
+        const themeDropdown = document.getElementById('theme-dropdown');
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const app = document.getElementById('app');
 
-    // Default theme
-    let currentTheme = localStorage.getItem('robot-dashboard-theme') || 'dark';
-    applyTheme(currentTheme);
+        // Default theme
+        let currentTheme = localStorage.getItem('robot-dashboard-theme') || 'dark';
+        applyTheme(currentTheme);
 
-    // Toggle theme dropdown
-    themeBtn.addEventListener('click', () => {
-        themeDropdown.classList.toggle('active');
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!themeBtn.contains(e.target) && !themeDropdown.contains(e.target)) {
-            themeDropdown.classList.remove('active');
-        }
-    });
-
-    // Theme selection
-    themeOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            const theme = option.getAttribute('data-theme');
-            currentTheme = theme;
-            localStorage.setItem('robot-dashboard-theme', theme);
-            applyTheme(theme);
-            themeDropdown.classList.remove('active');
-
-            // Update active theme in dropdown
-            themeOptions.forEach(opt => {
-                if (opt.getAttribute('data-theme') === theme) {
-                    opt.classList.add('active');
-                } else {
-                    opt.classList.remove('active');
-                }
-            });
+        // Toggle theme dropdown
+        themeBtn.addEventListener('click', () => {
+            themeDropdown.classList.toggle('active');
         });
-    });
 
-    function applyTheme(theme) {
-        // Remove all theme classes from body
-        document.body.className = '';
-
-        // Add the selected theme class
-        document.body.classList.add(`theme-${theme}`);
-
-        // Update theme icon
-        updateThemeIcon(theme);
-    }
-
-    function updateThemeIcon(theme) {
-        const iconElement = themeBtn.querySelector('svg');
-
-        // Update icon path based on theme
-        switch(theme) {
-            case 'light':
-                updateSVGPath(iconElement, 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z');
-                break;
-            case 'dark':
-                updateSVGPath(iconElement, 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z');
-                break;
-            case 'cyberpunk':
-                updateSVGPath(iconElement, 'M4 6h16M4 12h16M4 18h16');
-                break;
-            case 'nature':
-                updateSVGPath(iconElement, 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z');
-                break;
-            case 'terminal':
-                updateSVGPath(iconElement, 'M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z');
-                break;
-            default:
-                updateSVGPath(iconElement, 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z');
-        }
-    }
-
-    function updateSVGPath(iconElement, pathData) {
-        // Clear existing paths
-        while (iconElement.firstChild) {
-            iconElement.removeChild(iconElement.firstChild);
-        }
-
-        // Create new path
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', pathData);
-        path.setAttribute('fill', 'none');
-        path.setAttribute('stroke', 'currentColor');
-        path.setAttribute('stroke-width', '2');
-        path.setAttribute('stroke-linecap', 'round');
-        path.setAttribute('stroke-linejoin', 'round');
-
-        iconElement.appendChild(path);
-    }
-
-    // Camera modal
-    const cameraFeeds = document.querySelectorAll('.camera-feed');
-    const cameraModal = document.getElementById('camera-modal');
-    const modalCameraImg = document.getElementById('modal-camera-img');
-    const modalCameraLabel = document.getElementById('modal-camera-label');
-    const modalCameraTitle = document.getElementById('modal-camera-title');
-    const closeModalBtn = document.getElementById('close-camera-modal');
-
-    cameraFeeds.forEach(feed => {
-        feed.addEventListener('click', () => {
-            const cameraId = feed.getAttribute('data-camera');
-            const cameraImg = feed.querySelector('img').src;
-
-            modalCameraImg.src = cameraImg;
-            modalCameraLabel.textContent = `Camera ${cameraId} - Distance: ${document.getElementById(`camera-distance-${cameraId}`).textContent}`;
-            modalCameraTitle.textContent = `Camera ${cameraId} Details`;
-
-            // Update position and timestamp in modal
-            document.getElementById('modal-position').textContent = document.getElementById('current-position').textContent;
-            document.getElementById('modal-timestamp').textContent = new Date().toLocaleTimeString();
-
-            cameraModal.classList.add('active');
-        });
-    });
-
-    closeModalBtn.addEventListener('click', () => {
-        cameraModal.classList.remove('active');
-    });
-
-    // Close modal when clicking outside
-    cameraModal.addEventListener('click', function(e) {
-        if (e.target === cameraModal) {
-            cameraModal.classList.remove('active');
-        }
-    });
-
-    // Cable length input
-    const cableLengthInput = document.getElementById('cable-length');
-    const totalLengthSpan = document.getElementById('total-length');
-    const progressBar = document.getElementById('progress-bar');
-    const progressPercentage = document.getElementById('progress-percentage');
-
-    cableLengthInput.addEventListener('change', updateProgress);
-
-    function updateProgress() {
-        const totalLength = parseFloat(cableLengthInput.value);
-        const currentDistance = parseFloat(document.getElementById('distance-traveled').textContent);
-
-        if (isNaN(totalLength) || totalLength <= 0) {
-            cableLengthInput.value = 100;
-            return;
-        }
-
-        totalLengthSpan.textContent = `${totalLength}m`;
-
-        const progress = (currentDistance / totalLength) * 100;
-        progressBar.style.width = `${Math.min(100, progress)}%`;
-        progressPercentage.textContent = `${progress.toFixed(1)}%`;
-    }
-
-    // Save images button
-    const saveImagesBtn = document.getElementById('save-images-btn');
-    const modalSaveBtn = document.getElementById('modal-save-btn');
-
-    function saveImages() {
-        fetch('/save_images', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!themeBtn.contains(e.target) && !themeDropdown.contains(e.target)) {
+                themeDropdown.classList.remove('active');
             }
-        })
-        .then(response => response.json())
-        .then(data => {
-            showToast('Images Saved', data.message, 'download', 'success');
         });
-    }
 
-    saveImagesBtn.addEventListener('click', saveImages);
-    modalSaveBtn.addEventListener('click', saveImages);
+        // Theme selection
+        themeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const theme = option.getAttribute('data-theme');
+                currentTheme = theme;
+                localStorage.setItem('robot-dashboard-theme', theme);
+                applyTheme(theme);
+                themeDropdown.classList.remove('active');
 
-    // Toast notification
-    function showToast(title, message, iconType, type) {
-        const toast = document.getElementById('toast');
-        const toastTitle = document.getElementById('toast-title');
-        const toastMessage = document.getElementById('toast-message');
-        const toastIcon = document.getElementById('toast-icon');
-
-        toastTitle.textContent = title;
-        toastMessage.textContent = message;
-
-        // Update icon based on type
-        const iconSVG = toastIcon.querySelector('svg');
-
-        switch(iconType) {
-            case 'alert-triangle':
-                updateSVGPath(iconSVG, 'M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z M12 9v2 M12 17h.01');
-                break;
-            case 'refresh-cw':
-                updateSVGPath(iconSVG, 'M23 4v6h-6 M1 20v-6h6 M3.51 9a9 9 0 0 1 14.85-3.36L23 10 M1 14l4.64 4.36A9 9 0 0 0 20.49 15');
-                break;
-            case 'download':
-                updateSVGPath(iconSVG, 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3');
-                break;
-            default:
-                updateSVGPath(iconSVG, 'M22 11.08V12a10 10 0 1 1-5.93-9.14 M22 4L12 14.01l-3-3');
-        }
-
-        // Update color based on type
-        switch(type) {
-            case 'danger':
-                toastIcon.style.color = 'var(--danger)';
-                break;
-            case 'success':
-                toastIcon.style.color = 'var(--success)';
-                break;
-            case 'warning':
-                toastIcon.style.color = 'var(--warning)';
-                break;
-            default:
-                toastIcon.style.color = 'var(--primary)';
-        }
-
-        // Show toast
-        toast.classList.add('active');
-
-        // Hide toast after 3 seconds
-        setTimeout(() => {
-            toast.classList.remove('active');
-        }, 3000);
-    }
-
-    // Fetch robot data periodically
-    function updateRobotData() {
-        fetch('/api/robot_data')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('current-speed').textContent = `${parseFloat(data.speed).toFixed(1)} m/s`;
-                document.getElementById('speed-bar').style.width = `${Math.min(100, data.speed * 50)}%`;
-
-                document.getElementById('distance-traveled').textContent = `${parseFloat(data.distance).toFixed(1)} m`;
-                document.getElementById('current-position').textContent = `${parseFloat(data.distance).toFixed(1)}m`;
-
-                document.getElementById('battery-level').textContent = `${parseInt(data.battery)}%`;
-                document.getElementById('battery-bar').style.width = `${data.battery}%`;
-
-                // Update battery bar color based on level
-                const batteryBar = document.getElementById('battery-bar');
-                if (data.battery > 60) {
-                    batteryBar.className = 'progress-fill';
-                } else if (data.battery > 30) {
-                    batteryBar.className = 'progress-fill warning';
-                } else {
-                    batteryBar.className = 'progress-fill danger';
-                }
-
-                document.getElementById('temperature').textContent = `${parseFloat(data.temperature).toFixed(1)}°C`;
-                document.getElementById('temp-bar').style.width = `${Math.min(100, (data.temperature - 20) * (100 / 30))}%`;
-
-                // Update temperature bar color based on level
-                const tempBar = document.getElementById('temp-bar');
-                if (data.temperature > 40) {
-                    tempBar.className = 'progress-fill danger';
-                } else if (data.temperature > 35) {
-                    tempBar.className = 'progress-fill warning';
-                } else {
-                    tempBar.className = 'progress-fill';
-                }
-
-                // Actualizar la distancia en cada cámara
-                const distance = parseFloat(data.distance).toFixed(1);
-                document.querySelectorAll('[id^="camera-distance-"]').forEach(el => {
-                    el.textContent = `${distance}m`;
+                // Update active theme in dropdown
+                themeOptions.forEach(opt => {
+                    if (opt.getAttribute('data-theme') === theme) {
+                        opt.classList.add('active');
+                    } else {
+                        opt.classList.remove('active');
+                    }
                 });
-
-                // Update progress
-                updateProgress();
             });
-    }
-
-    // Update data initially and then every 5 seconds
-    updateRobotData();
-    setInterval(updateRobotData, 5000);
-
-    // Refresh camera images every 5 seconds
-    function refreshCameraImages() {
-        const cameraImages = document.querySelectorAll('.camera-img');
-        cameraImages.forEach(img => {
-            const cameraId = img.getAttribute('data-camera');
-            const timestamp = new Date().getTime(); // Add timestamp to prevent caching
-            img.src = `/get_camera/${cameraId}?t=${timestamp}`;
         });
-    }
 
-    setInterval(refreshCameraImages, 5000);
+        function applyTheme(theme) {
+            // Remove all theme classes from body
+            document.body.className = '';
 
-    // Initialize progress bar
-    updateProgress();
-});
+            // Add the selected theme class
+            document.body.classList.add(`theme-${theme}`);
+
+            // Update theme icon
+            updateThemeIcon(theme);
+        }
+
+        function updateThemeIcon(theme) {
+            const iconElement = themeBtn.querySelector('svg');
+
+            // Update icon path based on theme
+            switch (theme) {
+                case 'light':
+                    updateSVGPath(iconElement, 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z');
+                    break;
+                case 'dark':
+                    updateSVGPath(iconElement, 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z');
+                    break;
+                case 'cyberpunk':
+                    updateSVGPath(iconElement, 'M4 6h16M4 12h16M4 18h16');
+                    break;
+                case 'nature':
+                    updateSVGPath(iconElement, 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z');
+                    break;
+                case 'terminal':
+                    updateSVGPath(iconElement, 'M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z');
+                    break;
+                default:
+                    updateSVGPath(iconElement, 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z');
+            }
+        }
+
+        function updateSVGPath(iconElement, pathData) {
+            // Clear existing paths
+            while (iconElement.firstChild) {
+                iconElement.removeChild(iconElement.firstChild);
+            }
+
+            // Create new path
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('d', pathData);
+            path.setAttribute('fill', 'none');
+            path.setAttribute('stroke', 'currentColor');
+            path.setAttribute('stroke-width', '2');
+            path.setAttribute('stroke-linecap', 'round');
+            path.setAttribute('stroke-linejoin', 'round');
+
+            iconElement.appendChild(path);
+        }
+
+        // Camera modal
+        const cameraFeeds = document.querySelectorAll('.camera-feed');
+        const cameraModal = document.getElementById('camera-modal');
+        const modalCameraImg = document.getElementById('modal-camera-img');
+        const modalCameraLabel = document.getElementById('modal-camera-label');
+        const modalCameraTitle = document.getElementById('modal-camera-title');
+        const closeModalBtn = document.getElementById('close-camera-modal');
+
+        cameraFeeds.forEach(feed => {
+            feed.addEventListener('click', () => {
+                const cameraId = feed.getAttribute('data-camera');
+                const cameraImg = feed.querySelector('img').src;
+
+                modalCameraImg.src = cameraImg;
+                modalCameraLabel.textContent = `Camera ${cameraId} - Distance: ${document.getElementById(`camera-distance-${cameraId}`).textContent}`;
+                modalCameraTitle.textContent = `Camera ${cameraId} Details`;
+
+                // Update position and timestamp in modal
+                document.getElementById('modal-position').textContent = document.getElementById('current-position').textContent;
+                document.getElementById('modal-timestamp').textContent = new Date().toLocaleTimeString();
+
+                cameraModal.classList.add('active');
+            });
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            cameraModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        cameraModal.addEventListener('click', function (e) {
+            if (e.target === cameraModal) {
+                cameraModal.classList.remove('active');
+            }
+        });
+
+        // Cable length input
+        const cableLengthInput = document.getElementById('cable-length');
+        const totalLengthSpan = document.getElementById('total-length');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercentage = document.getElementById('progress-percentage');
+
+        cableLengthInput.addEventListener('change', updateProgress);
+
+        function updateProgress() {
+            const totalLength = parseFloat(cableLengthInput.value);
+            const currentDistance = parseFloat(document.getElementById('distance-traveled').textContent);
+
+            if (isNaN(totalLength) || totalLength <= 0) {
+                cableLengthInput.value = 100;
+                return;
+            }
+
+            totalLengthSpan.textContent = `${totalLength}m`;
+
+            const progress = (currentDistance / totalLength) * 100;
+            progressBar.style.width = `${Math.min(100, progress)}%`;
+            progressPercentage.textContent = `${progress.toFixed(1)}%`;
+        }
+
+        // Save images button
+        const saveImagesBtn = document.getElementById('save-images-btn');
+        const modalSaveBtn = document.getElementById('modal-save-btn');
+
+        function saveImages() {
+            fetch('/save_images', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    showToast('Images Saved', data.message, 'download', 'success');
+                });
+        }
+
+        saveImagesBtn.addEventListener('click', saveImages);
+        modalSaveBtn.addEventListener('click', saveImages);
+
+        // Toast notification
+        function showToast(title, message, iconType, type) {
+            const toast = document.getElementById('toast');
+            const toastTitle = document.getElementById('toast-title');
+            const toastMessage = document.getElementById('toast-message');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+
+            // Update icon based on type
+            const iconSVG = toastIcon.querySelector('svg');
+
+            switch (iconType) {
+                case 'alert-triangle':
+                    updateSVGPath(iconSVG, 'M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z M12 9v2 M12 17h.01');
+                    break;
+                case 'refresh-cw':
+                    updateSVGPath(iconSVG, 'M23 4v6h-6 M1 20v-6h6 M3.51 9a9 9 0 0 1 14.85-3.36L23 10 M1 14l4.64 4.36A9 9 0 0 0 20.49 15');
+                    break;
+                case 'download':
+                    updateSVGPath(iconSVG, 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3');
+                    break;
+                default:
+                    updateSVGPath(iconSVG, 'M22 11.08V12a10 10 0 1 1-5.93-9.14 M22 4L12 14.01l-3-3');
+            }
+
+            // Update color based on type
+            switch (type) {
+                case 'danger':
+                    toastIcon.style.color = 'var(--danger)';
+                    break;
+                case 'success':
+                    toastIcon.style.color = 'var(--success)';
+                    break;
+                case 'warning':
+                    toastIcon.style.color = 'var(--warning)';
+                    break;
+                default:
+                    toastIcon.style.color = 'var(--primary)';
+            }
+
+            // Show toast
+            toast.classList.add('active');
+
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        // Fetch robot data periodically
+        function updateRobotData() {
+            fetch('/api/robot_data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('current-speed').textContent = `${parseFloat(data.speed).toFixed(1)} m/s`;
+                    document.getElementById('speed-bar').style.width = `${Math.min(100, data.speed * 50)}%`;
+
+                    document.getElementById('distance-traveled').textContent = `${parseFloat(data.distance).toFixed(1)} m`;
+                    document.getElementById('current-position').textContent = `${parseFloat(data.distance).toFixed(1)}m`;
+
+                    document.getElementById('battery-level').textContent = `${parseInt(data.battery)}%`;
+                    document.getElementById('battery-bar').style.width = `${data.battery}%`;
+
+                    // Update battery bar color based on level
+                    const batteryBar = document.getElementById('battery-bar');
+                    if (data.battery > 60) {
+                        batteryBar.className = 'progress-fill';
+                    } else if (data.battery > 30) {
+                        batteryBar.className = 'progress-fill warning';
+                    } else {
+                        batteryBar.className = 'progress-fill danger';
+                    }
+
+                    document.getElementById('temperature').textContent = `${parseFloat(data.temperature).toFixed(1)}°C`;
+                    document.getElementById('temp-bar').style.width = `${Math.min(100, (data.temperature - 20) * (100 / 30))}%`;
+
+                    // Update temperature bar color based on level
+                    const tempBar = document.getElementById('temp-bar');
+                    if (data.temperature > 40) {
+                        tempBar.className = 'progress-fill danger';
+                    } else if (data.temperature > 35) {
+                        tempBar.className = 'progress-fill warning';
+                    } else {
+                        tempBar.className = 'progress-fill';
+                    }
+
+                    // Actualizar la distancia en cada cámara
+                    const distance = parseFloat(data.distance).toFixed(1);
+                    document.querySelectorAll('[id^="camera-distance-"]').forEach(el => {
+                        el.textContent = `${distance}m`;
+                    });
+
+                    // Update progress
+                    updateProgress();
+                });
+        }
+
+        // Update data initially and then every 5 seconds
+        updateRobotData();
+        setInterval(updateRobotData, 5000);
+
+        // Refresh camera images every 5 seconds
+        function refreshCameraImages() {
+            const cameraImages = document.querySelectorAll('.camera-img');
+            cameraImages.forEach(img => {
+                const cameraId = img.getAttribute('data-camera');
+                const timestamp = new Date().getTime(); // Add timestamp to prevent caching
+                img.src = `/get_camera/${cameraId}?t=${timestamp}`;
+            });
+        }
+
+        setInterval(refreshCameraImages, 5000);
+
+        // Initialize progress bar
+        updateProgress();
+    });
 </script>
 {% endblock %}
